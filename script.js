@@ -1,4 +1,4 @@
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyohv3wLsJ-qBC_Mm4G2P7Cukjs2mUoOZhfiA6OUWItbMu8WoqTkUUU6TaCYgRnf_USOA/exec"; 
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwdWcYt5trSAPKPPdh9LQwES2gp0pUj0RVxbqKrlPaAadbrlX-z1Uf0a2RG0IpKQ7zKeA/exec"; 
 
 const state = {
     image: null,
