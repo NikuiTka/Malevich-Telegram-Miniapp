@@ -43,6 +43,65 @@ function initTelegram() {
     }
 }
 
+async function handleSubmit() {
+    if (state.phone.length < 10) {
+        if (tg) tg.showAlert("Пожалуйста, введите корректный номер телефона");
+        else alert("Введите номер телефона");
+        return;
+    }
+
+    if (!state.image) {
+        if (tg) tg.showAlert("Пожалуйста, загрузите фотографию");
+        else alert("Загрузите фотографию");
+        return;
+    }
+
+    if (tg) tg.MainButton.showProgress();
+
+    const price = calculatePrice();
+    const currentFormat = formats[state.selectedFormat];
+    const selectedSuitData = suits[state.selectedSuit];
+
+    // Формируем чистый JSON объект для отправки
+    const payload = {
+        phone: state.phone,
+        format_name: currentFormat.name,
+        suit_name: selectedSuitData.name,
+        total_price: price,
+        image_data: state.image, // Base64 данные фото
+    };
+
+    let success = false;
+    try {
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            headers: {
+                // Это критически важно! Говорим серверу, что отправляем JSON.
+                'Content-Type': 'application/json', 
+            },
+            body: JSON.stringify(payload), // Преобразуем объект в строку JSON
+        });
+
+        const result = await response.json();
+        if (result.status === 'success') {
+            success = true;
+        } else {
+             if (tg) tg.showAlert(`Ошибка сервера: ${result.message}`);
+        }
+    } catch (e) {
+        // Здесь мы получим "Ошибка сети" (Failed to fetch) при проблемах с CORS/DNS/SSL
+        if (tg) tg.showAlert(`Ошибка сети при отправке: ${e.message}`);
+        else alert(`Ошибка сети при отправке: ${e.message}`);
+    }
+    
+    if (tg) tg.MainButton.hideProgress();
+
+    if (success) {
+        setOrderStatus('success');
+        if (tg) tg.HapticFeedback.notificationOccurred('success');
+    }
+}
+
 function calculatePrice() {
     return BASE_PRICE + (state.selectedSuit !== 'none' ? SUIT_PRICE : 0);
 }
