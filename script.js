@@ -1,4 +1,4 @@
-const GOOGLE_SCRIPT_URL = "nwholstnbtweather@gmail.com"; 
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyohv3wLsJ-qBC_Mm4G2P7Cukjs2mUoOZhfiA6OUWItbMu8WoqTkUUU6TaCYgRnf_USOA/exec"; 
 
 const state = {
     image: null,
