@@ -1,0 +1,17 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    height: 100vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#content {
+    text-align: center;
+    padding: 20px;
+    font-weight: bold;
+}
