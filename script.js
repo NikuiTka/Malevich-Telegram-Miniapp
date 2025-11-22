@@ -257,3 +257,51 @@ document.addEventListener('DOMContentLoaded', () => {
     renderSuits();
     updatePreviewSection();
 });
+// --- ДОБАВИТЬ ЭТУ ФУНКЦИЮ ПЕРЕД document.addEventListener ---
+
+function applyTheme(theme) {
+    const body = document.body;
+    const toggleButton = document.getElementById('theme-toggle');
+    
+    if (theme === 'dark') {
+        body.classList.add('dark-theme');
+        localStorage.setItem('theme', 'dark');
+        // Опционально: можно поменять иконку в кнопке
+        if (toggleButton) {
+            toggleButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>';
+        }
+    } else {
+        body.classList.remove('dark-theme');
+        localStorage.setItem('theme', 'light');
+        // Возвращаем иконку Луны
+        if (toggleButton) {
+            toggleButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9a9 9 0 1 1-9-9Z"/></svg>';
+        }
+    }
+}
+
+// --- ИЗМЕНИТЬ БЛОК document.addEventListener('DOMContentLoaded', ...) ---
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Инициализация Telegram
+    initTelegram();
+
+    // 2. Навешивание обработчиков DOM
+    // ... (существующие обработчики)
+    const phoneInput = document.getElementById('phone-input');
+    const closeButton = document.getElementById('close-app-button');
+
+    // --- НОВЫЕ СТРОКИ ДЛЯ ТЕМЫ ---
+    const themeToggle = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    applyTheme(savedTheme); // Применяем сохраненную тему при загрузке
+
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.body.classList.contains('dark-theme') ? 'light' : 'dark';
+        applyTheme(currentTheme);
+    });
+    // --- КОНЕЦ НОВЫХ СТРОК ДЛЯ ТЕМЫ ---
+
+    fileInput.addEventListener('change', handleFileChange);
+    // ... (остальной код)
+});
