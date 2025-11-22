@@ -552,3 +552,53 @@ body {
     height: 16px;
     color: #9ca3af;
 }
+/* --- ОСНОВНЫЕ СТИЛИ --- */
+:root {
+    /* Светлая тема (Light Theme Variables) */
+    --tg-bg: #f0f2f5;
+    --tg-card-bg: #ffffff;
+    --tg-primary: #0088cc;
+    --tg-text: #2b2b2b;
+    --tg-secondary-text: #9ca3af;
+    --tg-border: #f3f4f6;
+    --tg-shadow: rgba(0, 0, 0, 0.05);
+}
+/* --- Тёмная тема (Dark Theme Variables) --- */
+body.dark-theme {
+    --tg-bg: #1c1c1c;
+    --tg-card-bg: #2a2a2a;
+    --tg-primary: #4ab3f4;
+    --tg-text: #e0e0e0;
+    --tg-secondary-text: #a0a0a0;
+    --tg-border: #3c3c3c;
+    --tg-shadow: rgba(0, 0, 0, 0.4);
+}
+/* Применяем shadow ко всем элементам, которые его используют */
+.section-card, .formats-list, .contact-input-wrapper, .success-card {
+    box-shadow: 0 1px 3px var(--tg-shadow);
+}
+/* Переопределение стилей для тёмной темы */
+.upload-button {
+    background-color: var(--tg-card-bg);
+    color: var(--tg-secondary-text);
+}
+.upload-button:hover {
+    color: var(--tg-text);
+}
+.info-item {
+    color: var(--tg-secondary-text); /* Цвет для иконок и текста формата */
+}
+.format-option:hover {
+    background-color: var(--tg-border); /* Изменение цвета при наведении */
+}
+.format-icon {
+    background-color: var(--tg-border);
+}
+.format-check {
+    background-color: var(--tg-text);
+    color: var(--tg-card-bg); /* Инвертируем цвета для галочки */
+}
+.close-button {
+    background-color: var(--tg-text);
+    color: var(--tg-card-bg);
+}
