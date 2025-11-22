@@ -1,4 +1,4 @@
-const GOOGLE_SCRIPT_URL = ""; 
+const GOOGLE_SCRIPT_URL = "nwholstnbtweather@gmail.com"; 
 
 const state = {
     image: null,
@@ -197,15 +197,48 @@ async function handleSubmit() {
         return;
     }
 
+    if (!state.image) {
+        if (tg) tg.showAlert("Пожалуйста, загрузите фотографию");
+        else alert("Загрузите фотографию");
+        return;
+    }
+
     if (tg) tg.MainButton.showProgress();
 
-    // Симуляция успешной отправки
-    await new Promise(r => setTimeout(r, 2000));
-    
-    setOrderStatus('success');
+    const price = calculatePrice();
+    const currentFormat = formats[state.selectedFormat];
+    const selectedSuitData = suits[state.selectedSuit];
 
+    const formData = new FormData();
+    formData.append('phone', state.phone);
+    formData.append('format_name', currentFormat.name);
+    formData.append('suit_name', selectedSuitData.name);
+    formData.append('total_price', price);
+    formData.append('image_data', state.image);
+
+    let success = false;
+    try {
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            body: formData,
+        });
+
+        const result = await response.json();
+        if (result.status === 'success') {
+            success = true;
+        } else {
+             if (tg) tg.showAlert(`Ошибка сервера: ${result.message}`);
+        }
+    } catch (e) {
+        if (tg) tg.showAlert(`Ошибка сети: ${e.message}`);
+    }
+    
     if (tg) tg.MainButton.hideProgress();
-    if (tg) tg.HapticFeedback.notificationOccurred('success');
+
+    if (success) {
+        setOrderStatus('success');
+        if (tg) tg.HapticFeedback.notificationOccurred('success');
+    }
 }
 
 function setOrderStatus(status) {
@@ -228,6 +261,25 @@ function setOrderStatus(status) {
     }
 }
 
+function applyTheme(theme) {
+    const body = document.body;
+    const toggleButton = document.getElementById('theme-toggle');
+    
+    if (theme === 'dark') {
+        body.classList.add('dark-theme');
+        localStorage.setItem('theme', 'dark');
+        if (toggleButton) {
+            toggleButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>';
+        }
+    } else {
+        body.classList.remove('dark-theme');
+        localStorage.setItem('theme', 'light');
+        if (toggleButton) {
+            toggleButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9a9 9 0 1 1-9-9Z"/></svg>';
+        }
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initTelegram();
 
@@ -236,6 +288,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const replaceButton = document.getElementById('replace-button');
     const phoneInput = document.getElementById('phone-input');
     const closeButton = document.getElementById('close-app-button');
+    
+    // Theme logic
+    const themeToggle = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    applyTheme(savedTheme); 
+
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.body.classList.contains('dark-theme') ? 'light' : 'dark';
+        applyTheme(currentTheme);
+    });
 
     fileInput.addEventListener('change', handleFileChange);
     uploadButton.addEventListener('click', () => fileInput.click());
@@ -256,52 +318,4 @@ document.addEventListener('DOMContentLoaded', () => {
     renderFormats();
     renderSuits();
     updatePreviewSection();
-});
-// --- ДОБАВИТЬ ЭТУ ФУНКЦИЮ ПЕРЕД document.addEventListener ---
-
-function applyTheme(theme) {
-    const body = document.body;
-    const toggleButton = document.getElementById('theme-toggle');
-    
-    if (theme === 'dark') {
-        body.classList.add('dark-theme');
-        localStorage.setItem('theme', 'dark');
-        // Опционально: можно поменять иконку в кнопке
-        if (toggleButton) {
-            toggleButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>';
-        }
-    } else {
-        body.classList.remove('dark-theme');
-        localStorage.setItem('theme', 'light');
-        // Возвращаем иконку Луны
-        if (toggleButton) {
-            toggleButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9a9 9 0 1 1-9-9Z"/></svg>';
-        }
-    }
-}
-
-// --- ИЗМЕНИТЬ БЛОК document.addEventListener('DOMContentLoaded', ...) ---
-
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Инициализация Telegram
-    initTelegram();
-
-    // 2. Навешивание обработчиков DOM
-    // ... (существующие обработчики)
-    const phoneInput = document.getElementById('phone-input');
-    const closeButton = document.getElementById('close-app-button');
-
-    // --- НОВЫЕ СТРОКИ ДЛЯ ТЕМЫ ---
-    const themeToggle = document.getElementById('theme-toggle');
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    applyTheme(savedTheme); // Применяем сохраненную тему при загрузке
-
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = document.body.classList.contains('dark-theme') ? 'light' : 'dark';
-        applyTheme(currentTheme);
-    });
-    // --- КОНЕЦ НОВЫХ СТРОК ДЛЯ ТЕМЫ ---
-
-    fileInput.addEventListener('change', handleFileChange);
-    // ... (остальной код)
 });
