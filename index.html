@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photo Studio Mini App</title>
-    
     <link rel="stylesheet" href="styles.css">
-    
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
     <div id="app-root">
-        
         <header id="app-header">
             <div class="header-logo">
                 <div class="logo-icon">ID</div>
@@ -19,43 +16,30 @@
                     <div class="logo-title">Studio</div>
                     <div class="logo-subtitle">Express Bot</div>
                 </div>
-                <header id="app-header">
-            <div class="header-logo">
-                </div>
+            </div>
             <button id="theme-toggle" class="theme-toggle">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9a9 9 0 1 1-9-9Z"/></svg>
             </button>
             <div id="user-info" class="header-user-info"></div>
         </header>
-            </div>
-            <div id="user-info" class="header-user-info"></div>
-        </header>
 
         <main id="app-main">
-
             <section class="section-card preview-section">
                 <div id="image-preview-container" class="preview-container aspect-ratio-4-3">
-                    
                     <button id="upload-button" class="upload-button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v12a6 6 0 0 0 6 6h0a6 6 0 0 0 6-6V3"/><circle cx="12" cy="12" r="9"/><path d="M12 9v6M9 12h6"/></svg>
                         <span>Загрузить фото</span>
                     </button>
-
                     <div id="image-display" class="image-display hidden">
                         <img id="user-photo" src="" alt="preview" class="user-photo">
-                        
                         <div id="suit-preview" class="suit-preview"></div>
-                        
                         <button id="replace-button" class="replace-button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.76 2.76L3 7"/><path d="M3 3v4h4"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.76-2.76L21 17"/><path d="M21 21v-4h-4"/></svg>
                         </button>
-                        
                         <div class="photo-overlay"></div>
                     </div>
-                    
                     <input type="file" id="file-input" accept="image/*" class="hidden">
                 </div>
-
                 <div id="info-panel" class="info-panel hidden">
                     <div class="info-panel-content">
                         <div class="info-item">
@@ -68,22 +52,17 @@
                     </div>
                 </div>
             </section>
-
             <section class="section-container">
                 <div class="section-header">
                     <h3 class="section-title">Гардероб</h3>
                     <button id="reset-suit-btn" class="reset-button hidden">Сбросить</button>
                 </div>
-                <div id="suits-container" class="scroll-container">
-                    </div>
+                <div id="suits-container" class="scroll-container"></div>
             </section>
-
             <section class="section-container">
                 <h3 class="section-title">Документ</h3>
-                <div id="formats-container" class="formats-list">
-                    </div>
+                <div id="formats-container" class="formats-list"></div>
             </section>
-            
             <section class="section-container">
                 <h3 class="section-title">Контакты</h3>
                 <div class="contact-input-wrapper">
@@ -94,7 +73,6 @@
             </section>
         </main>
     </div>
-
     <div id="success-screen" class="success-screen hidden">
         <div class="success-card">
             <div class="success-icon-wrapper">
@@ -102,7 +80,6 @@
             </div>
             <h2 class="success-title">Заказ отправлен!</h2>
             <p class="success-message">Ретушер уже работает над вашим фото.</p>
-            
             <div class="order-summary">
                  <div class="summary-item">
                     <span>Сумма</span>
@@ -113,13 +90,11 @@
                     <span id="final-phone-summary"></span>
                  </div>
             </div>
-
             <button id="close-app-button" class="close-button">
                 Закрыть
             </button>
         </div>
     </div>
-    
     <script src="script.js"></script>
 </body>
 </html>
