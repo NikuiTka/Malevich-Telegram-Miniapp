@@ -602,3 +602,23 @@ body.dark-theme {
     background-color: var(--tg-text);
     color: var(--tg-card-bg);
 }
+/* --- Стили для кнопки переключения темы --- */
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--tg-secondary-text);
+    transition: color 0.2s;
+    padding: 8px;
+    border-radius: 50%;
+}
+.theme-toggle:hover {
+    color: var(--tg-text);
+    background-color: var(--tg-border);
+}
+/* Для тёмной темы иконка Луны меняется на Солнце (визуально, поменяется цвет) */
+.dark-theme .theme-toggle svg {
+    /* Можно добавить трансформацию или другую иконку, но смена цвета уже даст эффект */
+    stroke: var(--tg-primary);
+    fill: var(--tg-primary);
+}
