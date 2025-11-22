@@ -1,559 +1,5 @@
 /* --- ОСНОВНЫЕ СТИЛИ --- */
 :root {
-    --tg-bg: #f0f2f5;
-    --tg-card-bg: #ffffff;
-    --tg-primary: #0088cc;
-    --tg-text: #2b2b2b;
-    --tg-secondary-text: #9ca3af;
-    --tg-border: #f3f4f6;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--tg-bg);
-    color: var(--tg-text);
-    min-height: 100vh;
-}
-
-/* --- ШАПКА --- */
-#app-header {
-    background-color: var(--tg-card-bg);
-    padding: 16px;
-    position: sticky;
-    top: 0;
-    z-index: 30;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.header-logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.logo-icon {
-    width: 32px;
-    height: 32px;
-    background-color: black;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-style: italic;
-    font-weight: bold;
-    border-radius: 8px;
-    font-family: Georgia, serif; /* Шрифт как в оригинале */
-}
-
-.logo-title {
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-    line-height: 1;
-}
-
-.logo-subtitle {
-    font-size: 8px;
-    color: var(--tg-secondary-text);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    line-height: 1;
-}
-
-.header-user-info {
-    font-size: 10px;
-    background-color: var(--tg-border);
-    padding: 4px 8px;
-    border-radius: 9999px; /* rounded-full */
-    color: var(--tg-secondary-text);
-}
-
-/* --- ОСНОВНОЙ КОНТЕНТ --- */
-#app-main {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 16px;
-    padding-bottom: 100px; /* Отступ для MainButton */
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-/* Общие стили для секций */
-.section-container {
-    padding: 4px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.section-title {
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--tg-secondary-text);
-    padding: 0 4px;
-}
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 4px;
-}
-
-.reset-button {
-    background: none;
-    border: none;
-    font-size: 10px;
-    color: red;
-    font-weight: bold;
-    text-transform: uppercase;
-    cursor: pointer;
-}
-
-/* --- 1. ПРЕВЬЮ --- */
-.section-card {
-    background-color: var(--tg-card-bg);
-    border-radius: 16px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    padding: 4px;
-    overflow: hidden;
-}
-
-.preview-container {
-    position: relative;
-    background-color: var(--tg-border);
-    border-radius: 12px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 350px; /* Фиксированная высота для предпросмотра */
-    margin-bottom: 4px;
-}
-
-.aspect-ratio-4-3 {
-    /* Для фото документов соотношение 3.5:4.5 или 3:4 */
-    /* В этом примере используем фикс. высоту, как в оригинальном коде */
-}
-
-/* Кнопка загрузки (когда нет фото) */
-.upload-button {
-    background-color: var(--tg-card-bg);
-    border: none;
-    border-radius: 9999px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    color: var(--tg-secondary-text);
-    cursor: pointer;
-    transition: color 0.2s;
-}
-
-.upload-button:hover {
-    color: black;
-}
-
-/* Отображение фото */
-.image-display {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.user-photo {
-    width: 70%; 
-    height: 70%;
-    object-fit: cover;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s;
-    /* Стили для имитации соотношения сторон (будет меняться JS) */
-    position: relative;
-    overflow: hidden;
-}
-
-.suit-preview {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 84%; /* 120% от 70% */
-    height: 60%; 
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    pointer-events: none;
-}
-
-.suit-preview img {
-    width: 100%;
-    object-fit: contain;
-    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
-    opacity: 0.9;
-}
-
-.replace-button {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 8px;
-    border-radius: 9999px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    color: black;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.2s;
-    z-index: 20;
-}
-
-.replace-button:hover {
-    transform: scale(1.1);
-}
-
-.photo-overlay {
-    /* Здесь можно добавить линии разметки, как в оригинале */
-}
-
-/* Инфо-панель под фото */
-.info-panel {
-    padding: 16px;
-    border-top: 1px solid var(--tg-border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.info-panel-content {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.info-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: #4b5563;
-}
-
-.price-display {
-    background-color: black;
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 4px 12px;
-    border-radius: 9999px;
-}
-
-
-/* --- 2. ВЫБОР КОСТЮМА --- */
-.scroll-container {
-    display: flex;
-    gap: 12px;
-    overflow-x: auto;
-    padding-bottom: 16px;
-    /* Стили для скрытия полосы прокрутки (только для Webkit) */
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-}
-
-.scroll-container::-webkit-scrollbar {
-    display: none;
-}
-
-.suit-option {
-    flex-shrink: 0;
-    width: 96px;
-    height: 128px;
-    border: 2px solid transparent;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: all 0.2s;
-    position: relative;
-    background-color: var(--tg-card-bg);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    cursor: pointer;
-}
-
-.suit-option.selected {
-    border-color: black;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transform: scale(1.05);
-}
-
-.suit-image-preview {
-    width: 56px;
-    height: 56px;
-    object-fit: contain;
-}
-
-.suit-name {
-    font-size: 9px;
-    font-weight: bold;
-    text-transform: uppercase;
-    text-align: center;
-    line-height: 1.2;
-    padding: 0 8px;
-}
-
-.suit-price {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    font-size: 8px;
-    font-weight: bold;
-    padding: 2px 6px;
-    border-radius: 9999px;
-}
-
-.suit-price.default {
-    background-color: var(--tg-border);
-    color: #6b7280;
-}
-
-.suit-price.selected {
-    background-color: black;
-    color: white;
-}
-
-/* --- 3. ВЫБОР ФОРМАТА --- */
-.formats-list {
-    background-color: var(--tg-card-bg);
-    border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--tg-border);
-}
-
-.format-option {
-    width: 100%;
-    padding: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: background-color 0.1s;
-    text-align: left;
-    border: none;
-    background: none;
-    cursor: pointer;
-    border-bottom: 1px solid var(--tg-border);
-}
-
-.format-option:last-child {
-    border-bottom: none;
-}
-
-.format-option:hover {
-    background-color: #f9fafb;
-}
-
-.format-details {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-.format-icon {
-    width: 40px;
-    height: 48px;
-    background-color: var(--tg-border);
-    border: 2px solid;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.format-name {
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.format-desc {
-    font-size: 10px;
-    color: var(--tg-secondary-text);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-}
-
-.format-check {
-    width: 24px;
-    height: 24px;
-    background-color: black;
-    color: white;
-    border-radius: 9999px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* --- 4. КОНТАКТЫ --- */
-.contact-input-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background-color: var(--tg-card-bg);
-    border-radius: 12px;
-    padding: 12px 16px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    border: 1px solid var(--tg-border);
-}
-
-.phone-input {
-    flex-grow: 1;
-    padding: 8px 0;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    background: none;
-    color: var(--tg-text);
-}
-
-.phone-hint {
-    font-size: 12px;
-    color: var(--tg-secondary-text);
-    text-align: center;
-    padding: 0 16px;
-}
-
-/* --- ЭКРАН УСПЕХА --- */
-.success-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--tg-bg);
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    box-sizing: border-box;
-}
-
-.success-card {
-    background-color: var(--tg-card-bg);
-    padding: 32px;
-    width: 100%;
-    max-width: 384px;
-    text-align: center;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    border-radius: 12px;
-}
-
-.success-icon-wrapper {
-    width: 64px;
-    height: 64px;
-    background-color: #10b981; /* Зеленый */
-    color: white;
-    border-radius: 9999px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 24px;
-    box-shadow: 0 4px 6px rgba(16, 185, 129, 0.4);
-}
-
-.success-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-.success-message {
-    font-size: 14px;
-    color: #6b7280;
-    margin-bottom: 24px;
-}
-
-.order-summary {
-    background-color: var(--tg-border);
-    padding: 16px;
-    border-radius: 8px;
-    border: 1px solid #e5e7eb;
-    margin-bottom: 24px;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.summary-item {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-}
-
-.summary-item span:first-child {
-    color: #9ca3af;
-}
-
-.summary-item span:last-child {
-    font-weight: bold;
-    color: black;
-}
-
-.close-button {
-    width: 100%;
-    padding: 12px;
-    background-color: black;
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    transition: opacity 0.2s;
-}
-
-.close-button:hover {
-    opacity: 0.9;
-}
-
-/* --- УТИЛИТЫ --- */
-.hidden {
-    display: none !important;
-}
-
-.img-icon {
-    width: 16px;
-    height: 16px;
-    color: #9ca3af;
-}
-/* --- ОСНОВНЫЕ СТИЛИ --- */
-:root {
     /* Светлая тема (Light Theme Variables) */
     --tg-bg: #f0f2f5;
     --tg-card-bg: #ffffff;
@@ -577,30 +23,64 @@ body.dark-theme {
 .section-card, .formats-list, .contact-input-wrapper, .success-card {
     box-shadow: 0 1px 3px var(--tg-shadow);
 }
-/* Переопределение стилей для тёмной темы */
-.upload-button {
-    background-color: var(--tg-card-bg);
-    color: var(--tg-secondary-text);
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--tg-bg);
+    color: var(--tg-text);
+    min-height: 100vh;
 }
-.upload-button:hover {
+/* --- ШАПКА --- */
+#app-header {
+    background-color: var(--tg-card-bg);
+    padding: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    box-shadow: 0 1px 3px var(--tg-shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.logo-icon {
+    width: 32px;
+    height: 32px;
+    background-color: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    font-weight: bold;
+    border-radius: 8px;
+    font-family: Georgia, serif;
+}
+.logo-title {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 1;
     color: var(--tg-text);
 }
-.info-item {
-    color: var(--tg-secondary-text); /* Цвет для иконок и текста формата */
+.logo-subtitle {
+    font-size: 8px;
+    color: var(--tg-secondary-text);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 1;
 }
-.format-option:hover {
-    background-color: var(--tg-border); /* Изменение цвета при наведении */
-}
-.format-icon {
+.header-user-info {
+    font-size: 10px;
     background-color: var(--tg-border);
-}
-.format-check {
-    background-color: var(--tg-text);
-    color: var(--tg-card-bg); /* Инвертируем цвета для галочки */
-}
-.close-button {
-    background-color: var(--tg-text);
-    color: var(--tg-card-bg);
+    padding: 4px 8px;
+    border-radius: 9999px;
+    color: var(--tg-secondary-text);
 }
 /* --- Стили для кнопки переключения темы --- */
 .theme-toggle {
@@ -616,9 +96,419 @@ body.dark-theme {
     color: var(--tg-text);
     background-color: var(--tg-border);
 }
-/* Для тёмной темы иконка Луны меняется на Солнце (визуально, поменяется цвет) */
 .dark-theme .theme-toggle svg {
-    /* Можно добавить трансформацию или другую иконку, но смена цвета уже даст эффект */
     stroke: var(--tg-primary);
     fill: var(--tg-primary);
+}
+/* --- ОСНОВНОЙ КОНТЕНТ --- */
+#app-main {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 16px;
+    padding-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.section-container {
+    padding: 4px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.section-title {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--tg-secondary-text);
+    padding: 0 4px;
+}
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4px;
+}
+.reset-button {
+    background: none;
+    border: none;
+    font-size: 10px;
+    color: red;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+/* --- 1. ПРЕВЬЮ --- */
+.section-card {
+    background-color: var(--tg-card-bg);
+    border-radius: 16px;
+    padding: 4px;
+    overflow: hidden;
+}
+.preview-container {
+    position: relative;
+    background-color: var(--tg-border);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 350px;
+    margin-bottom: 4px;
+}
+.upload-button {
+    background-color: var(--tg-card-bg);
+    border: none;
+    border-radius: 9999px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--tg-secondary-text);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.upload-button:hover {
+    color: var(--tg-text);
+}
+.image-display {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.user-photo {
+    width: 70%; 
+    height: 70%;
+    object-fit: cover;
+    box-shadow: 0 10px 15px -3px var(--tg-shadow), 0 4px 6px -2px var(--tg-shadow);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+.suit-preview {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 84%;
+    height: 60%; 
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    pointer-events: none;
+}
+.suit-preview img {
+    width: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    opacity: 0.9;
+}
+.replace-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: var(--tg-card-bg);
+    padding: 8px;
+    border-radius: 9999px;
+    box-shadow: 0 4px 6px var(--tg-shadow);
+    color: var(--tg-text);
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s;
+    z-index: 20;
+}
+.replace-button:hover {
+    transform: scale(1.1);
+}
+.info-panel {
+    padding: 16px;
+    border-top: 1px solid var(--tg-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.info-panel-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--tg-secondary-text);
+}
+.price-display {
+    background-color: var(--tg-text);
+    color: var(--tg-card-bg);
+    font-size: 12px;
+    font-weight: bold;
+    padding: 4px 12px;
+    border-radius: 9999px;
+}
+/* --- 2. ВЫБОР КОСТЮМА --- */
+.scroll-container {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 16px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.scroll-container::-webkit-scrollbar {
+    display: none;
+}
+.suit-option {
+    flex-shrink: 0;
+    width: 96px;
+    height: 128px;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+    position: relative;
+    background-color: var(--tg-card-bg);
+    box-shadow: 0 1px 3px var(--tg-shadow);
+    cursor: pointer;
+}
+.suit-option.selected {
+    border-color: var(--tg-text);
+    box-shadow: 0 4px 6px var(--tg-shadow);
+    transform: scale(1.05);
+}
+.suit-image-preview {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+}
+.suit-name {
+    font-size: 9px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.2;
+    padding: 0 8px;
+    color: var(--tg-text);
+}
+.suit-price {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 8px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 9999px;
+}
+.suit-price.default {
+    background-color: var(--tg-border);
+    color: var(--tg-secondary-text);
+}
+.suit-price.selected {
+    background-color: var(--tg-text);
+    color: var(--tg-card-bg);
+}
+/* --- 3. ВЫБОР ФОРМАТА --- */
+.formats-list {
+    background-color: var(--tg-card-bg);
+    border-radius: 12px;
+    box-shadow: 0 1px 3px var(--tg-shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--tg-border);
+}
+.format-option {
+    width: 100%;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.1s;
+    text-align: left;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 1px solid var(--tg-border);
+    color: var(--tg-text);
+}
+.format-option:last-child {
+    border-bottom: none;
+}
+.format-option:hover {
+    background-color: var(--tg-border);
+}
+.format-details {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.format-icon {
+    width: 40px;
+    height: 48px;
+    background-color: var(--tg-border);
+    border: 2px solid;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.format-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--tg-text);
+}
+.format-desc {
+    font-size: 10px;
+    color: var(--tg-secondary-text);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+.format-check {
+    width: 24px;
+    height: 24px;
+    background-color: var(--tg-text);
+    color: var(--tg-card-bg);
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* --- 4. КОНТАКТЫ --- */
+.contact-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: var(--tg-card-bg);
+    border-radius: 12px;
+    padding: 12px 16px;
+    box-shadow: 0 1px 3px var(--tg-shadow);
+    border: 1px solid var(--tg-border);
+}
+.phone-input {
+    flex-grow: 1;
+    padding: 8px 0;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background: none;
+    color: var(--tg-text);
+}
+.phone-hint {
+    font-size: 12px;
+    color: var(--tg-secondary-text);
+    text-align: center;
+    padding: 0 16px;
+}
+/* --- ЭКРАН УСПЕХА --- */
+.success-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--tg-bg);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    box-sizing: border-box;
+}
+.success-card {
+    background-color: var(--tg-card-bg);
+    padding: 32px;
+    width: 100%;
+    max-width: 384px;
+    text-align: center;
+    border-radius: 12px;
+}
+.success-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    background-color: #10b981;
+    color: white;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    box-shadow: 0 4px 6px rgba(16, 185, 129, 0.4);
+}
+.success-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--tg-text);
+}
+.success-message {
+    font-size: 14px;
+    color: var(--tg-secondary-text);
+    margin-bottom: 24px;
+}
+.order-summary {
+    background-color: var(--tg-border);
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--tg-border);
+    margin-bottom: 24px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+.summary-item span:first-child {
+    color: var(--tg-secondary-text);
+}
+.summary-item span:last-child {
+    font-weight: bold;
+    color: var(--tg-text);
+}
+.close-button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--tg-text);
+    color: var(--tg-card-bg);
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+.close-button:hover {
+    opacity: 0.9;
+}
+/* --- УТИЛИТЫ --- */
+.hidden {
+    display: none !important;
+}
+.img-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--tg-secondary-text);
 }
